@@ -222,6 +222,7 @@ moreslow:							;még több lassítás, hogy szép legyen a víz effekt
 	ld c,3					;hosszúság -> max 10s
 	ld a,205				;hangmagasság -> 250Hz - 2kHz
 	call 0x18e1
+	out ($ff),a	
 	pop b
 	djnz moreslow
 	call scrollWave
@@ -692,6 +693,7 @@ makegosound3:
 	inc a
 	cp 160
 	jp nz, makegosound3
+	out ($ff),a	
 	ret
 
 
