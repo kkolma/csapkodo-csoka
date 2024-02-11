@@ -222,7 +222,7 @@ moreslow:							;még több lassítás, hogy szép legyen a víz effekt
 	;out ($7f),a
 	ld h,3					;hosszúság -> max 10s
 	ld l,205				;hangmagasság -> 250Hz - 2kHz
-	call 0x0108
+	call soundGen
 	out ($ff),a	
 	pop bc
 	djnz moreslow
@@ -666,7 +666,7 @@ makegosound1:
 	push af
 	ld h,6	
 	ld l,a
-	call 0x0108
+	call soundGen
 	pop af
 	inc a
 	inc a
@@ -677,7 +677,7 @@ makegosound2:
 	push af
 	ld h,5	
 	ld l,a
-	call 0x0108
+	call soundGen
 	pop af
 	inc a
 	inc a
@@ -689,7 +689,7 @@ makegosound3:
 	push af
 	ld h,5	
 	ld l,a
-	call 0x0108
+	call soundGen
 	pop af
 	inc a
 	inc a
@@ -698,6 +698,21 @@ makegosound3:
 	out ($ff),a	
 	ret
 
+
+soundGen:			;Nickmann Laci hanggenerátor rutinja
+	push bc
+	ld b,l
+sc1:
+	ld a,($e880)
+	djnz sc1
+	ld b,l
+sc2:
+	ld a,($e800)
+	djnz sc2
+	dec h
+	jr nz,sc1
+	pop bc
+	ret
 
 printGameOverText:				;ez csak teszt, majd rövidítem
 	ld hl,gotext	
