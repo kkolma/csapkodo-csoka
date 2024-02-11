@@ -219,6 +219,7 @@ moreslow:							;még több lassítás, hogy szép legyen a víz effekt
 	push b
 	;call slowDown
 	call scrollWave
+	out ($7f),a
 	ld c,3					;hosszúság -> max 10s
 	ld a,205				;hangmagasság -> 250Hz - 2kHz
 	call 0x18e1
@@ -659,6 +660,7 @@ slower1:
 
 ;#### pacmanhez hasonló soundeffekt game over esetén	
 makeGameOverSound:
+	out ($7f),a
 	ld a,10
 makegosound1:
 	push af
