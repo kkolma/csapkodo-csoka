@@ -211,20 +211,20 @@ waitNoSpace:
 ;#### title-nél a hullám emelkedő rutinja
 cunamiWave:	
 cunamiloop:
-	push b
+	push bc
 	push de
 	call printWave
 	ld b,3
 moreslow:							;még több lassítás, hogy szép legyen a víz effekt
-	push b
+	push bc
 	;call slowDown
 	call scrollWave
-	out ($7f),a
-	ld c,3					;hosszúság -> max 10s
-	ld a,205				;hangmagasság -> 250Hz - 2kHz
-	call 0x18e1
+	;out ($7f),a
+	ld h,3					;hosszúság -> max 10s
+	ld l,205				;hangmagasság -> 250Hz - 2kHz
+	call 0x0108
 	out ($ff),a	
-	pop b
+	pop bc
 	djnz moreslow
 	call scrollWave
 	pop de
@@ -234,7 +234,7 @@ moreslow:							;még több lassítás, hogy szép legyen a víz effekt
 	ld bc,64
 	sbc hl,bc
 	ld de,hl
-	pop b
+	pop bc
 	djnz cunamiloop
 	ret
 	
@@ -660,13 +660,13 @@ slower1:
 
 ;#### pacmanhez hasonló soundeffekt game over esetén	
 makeGameOverSound:
-	out ($7f),a
+	;out ($7f),a
 	ld a,10
 makegosound1:
 	push af
-	ld c,6	
+	ld h,6	
 	ld l,a
-	call 0x18e1
+	call 0x0108
 	pop af
 	inc a
 	inc a
@@ -675,9 +675,9 @@ makegosound1:
 	ld a,50
 makegosound2:
 	push af
-	ld c,5	
+	ld h,5	
 	ld l,a
-	call 0x18e1
+	call 0x0108
 	pop af
 	inc a
 	inc a
@@ -687,9 +687,9 @@ makegosound2:
 	ld a,90
 makegosound3:
 	push af
-	ld c,5	
+	ld h,5	
 	ld l,a
-	call 0x18e1
+	call 0x0108
 	pop af
 	inc a
 	inc a
